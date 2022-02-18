@@ -56,15 +56,63 @@
 		742C523F27BFD16500775657 /* WeatherApp */ = {
 			isa = PBXGroup;
 			children = (
-				742C524027BFD16500775657 /* AppDelegate.swift */,
-				742C524227BFD16500775657 /* SceneDelegate.swift */,
-				742C524427BFD16500775657 /* ViewController.swift */,
-				742C524627BFD16500775657 /* Main.storyboard */,
-				742C524927BFD16800775657 /* Assets.xcassets */,
-				742C524B27BFD16800775657 /* LaunchScreen.storyboard */,
-				742C524E27BFD16800775657 /* Info.plist */,
+				742C525927BFD20200775657 /* Networking */,
+				742C525827BFD1E300775657 /* Models */,
+				742C525727BFD1D500775657 /* ViewControllers */,
+				742C525427BFD19800775657 /* Storyboards */,
+				742C525527BFD1A400775657 /* Resources */,
+				742C525627BFD1B600775657 /* App */,
 			);
 			path = WeatherApp;
+			sourceTree = "<group>";
+		};
+		742C525427BFD19800775657 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				742C524627BFD16500775657 /* Main.storyboard */,
+				742C524B27BFD16800775657 /* LaunchScreen.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		742C525527BFD1A400775657 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				742C524927BFD16800775657 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		742C525627BFD1B600775657 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				742C524027BFD16500775657 /* AppDelegate.swift */,
+				742C524227BFD16500775657 /* SceneDelegate.swift */,
+				742C524E27BFD16800775657 /* Info.plist */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		742C525727BFD1D500775657 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				742C524427BFD16500775657 /* ViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		742C525827BFD1E300775657 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		742C525927BFD20200775657 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Networking;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -290,7 +338,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = WeatherApp/Info.plist;
+				INFOPLIST_FILE = WeatherApp/App/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -317,7 +365,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = WeatherApp/Info.plist;
+				INFOPLIST_FILE = WeatherApp/App/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
