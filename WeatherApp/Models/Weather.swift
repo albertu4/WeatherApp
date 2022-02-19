@@ -4,10 +4,22 @@
 //
 //  Created by Михаил Иванов on 18.02.2022.
 
-enum Link: String {
-    case londonWeather = "https://weatherdbi.herokuapp.com/data/weather/london"
-    case moscowWeather = "https://weatherdbi.herokuapp.com/data/weather/moscow"
-    case newYorkWeather = "https://weatherdbi.herokuapp.com/data/weather/newYork"
-    case yakutskWeather = "https://weatherdbi.herokuapp.com/data/weather/yakutsk"
-    case seoulWeather = "https://weatherdbi.herokuapp.com/data/weather/seoul"
+struct CurrentConditions: Decodable {
+    
+    let region: String?
+    let dayhour: String?
+    let temp: [String: Int]?
+    let precip: String?
+    let humidity: String?
+    let wind: [String: Int]?
+    let iconURL: String?
+    let comment: String?
+}
+
+struct NextDays: Decodable {
+    let day : String?
+    let comment: String?
+    let max_temp: [String: Int]?
+    let min_temp: String?
+    let iconURL: String?
 }
