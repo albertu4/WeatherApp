@@ -3,7 +3,6 @@
 //  WeatherApp
 //
 //  Created by Михаил Иванов on 18.02.2022.
-//import Foundation
 
 import Foundation
 
@@ -15,32 +14,22 @@ enum Link: String {
     case seoulWeather = "https://weatherdbi.herokuapp.com/data/weather/seoul"
 }
 
-func fetchCurrentWeather(link: Link.RawValue) {
-    guard let url = URL(string: link) else { return }
-    URLSession.shared.dataTask(with: url) { data, _, error in
-        guard let data = data else { return }
-        
-        do {
-            let currentConditions = try JSONDecoder().decode(CurrentConditions.self, from: data)
-        } catch let error {
-            print(error.localizedDescription)
-        }
-
-    }.resume()
-}
-
-func fetchForecast(link: Link.RawValue) {
-    guard let url = URL(string: link) else { return }
-    URLSession.shared.dataTask(with: url) { data, _, error in
-        guard let data = data else { return }
-        
-        do {
-            let nextDays = try JSONDecoder().decode([NextDays].self, from: data)
-            DispatchQueue.main.async {
-                print(nextDays)
+class NetworkManager {
+    
+    func fetchWeather(link: Link.RawValue, completion: @escaping (Result<Weather, Error>) -> ()) {
+        guard let url = URL(string: link) else { return }
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            guard let data = data else { return }
+            
+            do {
+                let weather = try JSONDecoder().decode(Weather.self, from: data)
+                completion(.success(weather))
+            } catch let error {
+                completion(.failure(error))
             }
-        } catch let error {
-            print(error.localizedDescription)
-        }
-    }.resume()
+        }.resume()
+    }
 }
+
+
+
