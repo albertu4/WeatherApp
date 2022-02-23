@@ -14,7 +14,7 @@ class WeatherCollectionViewController: UICollectionViewController {
     private let networkManager = NetworkManager()
     private let temperatureMeasurement = UnitOfTemperatureMeasurement.celsius.rawValue
     private let windSpeedMeasurment = UnitOfSpeedMeasurement.kilometres.rawValue
-    private let actualWeather = Link.londonWeather.rawValue
+    private let actualWeather = Link.londonWeather.rawValue //Город, ед.измерения выбираются только через enum. Action не сделал
     
     //MARK: - overrides
     override func viewDidLoad() {
@@ -39,7 +39,8 @@ class WeatherCollectionViewController: UICollectionViewController {
         2
     }
     
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    override func collectionView(_ collectionView: UICollectionView,
+                                 numberOfItemsInSection section: Int) -> Int {
         switch section {
         case 0:
             return 1
@@ -48,28 +49,43 @@ class WeatherCollectionViewController: UICollectionViewController {
         }
     }
 
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    override func collectionView(_ collectionView: UICollectionView,
+                                 cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         // CurrentDay section
         switch indexPath.section {
         case 0:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "currentDay", for: indexPath) as! CurrentWeatherCollectionViewCell
+            let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: "currentDay", for: indexPath
+            ) as! CurrentWeatherCollectionViewCell
             
             guard let currentWeather = weather?.currentConditions
             else { return cell }
             
-            cell.showCurrentWeatherData(currentWeather: currentWeather, temperatureMeasurement: temperatureMeasurement, windSpeedMeasurment: windSpeedMeasurment, networkManager: networkManager)
+            cell.showCurrentWeatherData(
+                currentWeather: currentWeather,
+                temperatureMeasurement: temperatureMeasurement,
+                windSpeedMeasurment: windSpeedMeasurment,
+                networkManager: networkManager
+            )
             
             return cell
             
         //Forecast section
         default:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "forecast", for: indexPath) as! ForecastCollectionViewCell
+            let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: "forecast", for: indexPath
+            ) as! ForecastCollectionViewCell
             
             guard let forecastWeather = weather?.next_days?[indexPath.row]
             else { return cell }
             
-            cell.showForecast(forecast: forecastWeather, temperatureMeasurement: temperatureMeasurement, windSpeedMeasurment: windSpeedMeasurment, networkManager: networkManager)
+            cell.showForecast(
+                forecast: forecastWeather,
+                temperatureMeasurement: temperatureMeasurement,
+                windSpeedMeasurment: windSpeedMeasurment,
+                networkManager: networkManager
+            )
             
             return cell
         }
@@ -78,7 +94,10 @@ class WeatherCollectionViewController: UICollectionViewController {
 
 //MARK: - Extensions
 extension WeatherCollectionViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         switch indexPath.section {
         case 0:
@@ -88,11 +107,15 @@ extension WeatherCollectionViewController: UICollectionViewDelegateFlowLayout {
         }
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        insetForSectionAt section: Int) -> UIEdgeInsets {
         UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         5
     }
 }

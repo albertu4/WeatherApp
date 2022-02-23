@@ -26,7 +26,7 @@ class NetworkManager {
         }.resume()
     }
     
-    func fetchtImage(link: String) -> UIImage{
+    func fetchCurrentWeatherImage(link: String) -> UIImage{
         
         let errorImage = UIImage(systemName: "wifi.slash")
         guard let url = URL(string: link) else { return errorImage!}

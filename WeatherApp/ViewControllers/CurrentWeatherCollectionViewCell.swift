@@ -17,14 +17,17 @@ class CurrentWeatherCollectionViewCell: UICollectionViewCell {
     @IBOutlet var wind: UILabel!
     @IBOutlet var humidity: UILabel!
     
-    func showCurrentWeatherData(currentWeather: CurrentConditions, temperatureMeasurement: String, windSpeedMeasurment: String, networkManager: NetworkManager) {
-        self.weatherTime.text = currentWeather.dayhour
-        self.currentTemperature.text = "\(currentWeather.temp?[temperatureMeasurement] ?? 0)°C"
-        self.weatherComment.text = currentWeather.comment
-        self.precipitation.text = "Precipitation \n\(currentWeather.precip ?? "")"
-        self.humidity.text = "Humidity \n\(currentWeather.humidity ?? "")"
-        self.wind.text = "Wind \n\(currentWeather.wind?[windSpeedMeasurment] ?? 0) km/h"
-        self.weatherIcon?.image = networkManager.fetchtImage(link: currentWeather.iconURL ?? "")
+    func showCurrentWeatherData(currentWeather: CurrentConditions,
+                                temperatureMeasurement: String,
+                                windSpeedMeasurment: String,
+                                networkManager: NetworkManager) {
+        weatherTime.text = currentWeather.dayhour
+        currentTemperature.text = "\(currentWeather.temp?[temperatureMeasurement] ?? 0)°C"
+        weatherComment.text = currentWeather.comment
+        precipitation.text = "Precipitation \n\(currentWeather.precip ?? "")"
+        humidity.text = "Humidity \n\(currentWeather.humidity ?? "")"
+        wind.text = "Wind \n\(currentWeather.wind?[windSpeedMeasurment] ?? 0) km/h"
+        weatherIcon?.image = networkManager.fetchCurrentWeatherImage(link: currentWeather.iconURL ?? "")
     }
 }
 
