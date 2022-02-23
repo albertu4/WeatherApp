@@ -17,5 +17,14 @@ class CurrentWeatherCollectionViewCell: UICollectionViewCell {
     @IBOutlet var wind: UILabel!
     @IBOutlet var humidity: UILabel!
     
+    func showCurrentWeatherData(currentWeather: CurrentConditions, temperatureMeasurement: String, windSpeedMeasurment: String, networkManager: NetworkManager) {
+        self.weatherTime.text = currentWeather.dayhour
+        self.currentTemperature.text = "\(currentWeather.temp?[temperatureMeasurement] ?? 0)°C"
+        self.weatherComment.text = currentWeather.comment
+        self.precipitation.text = "Precipitation \n\(currentWeather.precip ?? "")"
+        self.humidity.text = "Humidity \n\(currentWeather.humidity ?? "")"
+        self.wind.text = "Wind \n\(currentWeather.wind?[windSpeedMeasurment] ?? 0) km/h"
+        self.weatherIcon?.image = networkManager.fetchtImage(link: currentWeather.iconURL ?? "")
+    }
 }
 

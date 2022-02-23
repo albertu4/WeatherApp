@@ -14,4 +14,13 @@ class ForecastCollectionViewCell: UICollectionViewCell {
     @IBOutlet var forecastMinTemp: UILabel!
     @IBOutlet var forecastMaxTemp: UILabel!
     @IBOutlet var forecastIcon: UIImageView!
+    
+    func showForecast(forecast: NextDays, temperatureMeasurement: String, windSpeedMeasurment: String, networkManager: NetworkManager) {
+        forecastDay.text = forecast.day
+        forecastComment.text = forecast.comment
+        forecastMinTemp.text = "Min T: \(forecast.min_temp[temperatureMeasurement] ?? 0)°C"
+        forecastMaxTemp.text = "Max T: \(forecast.max_temp?[temperatureMeasurement] ?? 0)°C"
+        forecastIcon.image = networkManager.fetchForecastImage(link: forecast.iconURL ?? "")
+    }
+    
 }
