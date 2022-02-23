@@ -27,3 +27,21 @@ struct NextDays: Decodable {
     let min_temp: [String: Int]
     let iconURL: String?
 }
+
+//MARK: - Enums
+enum Link: String {
+    case londonWeather = "https://weatherdbi.herokuapp.com/data/weather/london"
+    case moscowWeather = "https://weatherdbi.herokuapp.com/data/weather/moscow"
+    case newYorkWeather = "https://weatherdbi.herokuapp.com/data/weather/newYork"
+    case seoulWeather = "https://weatherdbi.herokuapp.com/data/weather/seoul"
+}
+
+enum UnitOfSpeedMeasurement: String {
+    case kilometres = "km"
+    case miles
+}
+
+enum UnitOfTemperatureMeasurement: String {
+    case fahrenheit = "f"
+    case celsius = "c"
+}

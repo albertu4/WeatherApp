@@ -68,7 +68,6 @@ class WeatherCollectionViewController: UICollectionViewController {
                 windSpeedMeasurment: windSpeedMeasurment,
                 networkManager: networkManager
             )
-            
             return cell
             
         //Forecast section
