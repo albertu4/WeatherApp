@@ -11,27 +11,15 @@ class WeatherCollectionViewController: UICollectionViewController {
     
     //MARK: - Private properties
     private var weather: Weather?
-    private let networkManager = NetworkManager()
     private let temperatureMeasurement = UnitOfTemperatureMeasurement.celsius.rawValue
-    private let windSpeedMeasurment = UnitOfSpeedMeasurement.kilometres.rawValue
-    private let actualWeather = Link.londonWeather.rawValue //Город, ед.измерения выбираются только через enum. Action не сделал
+    private let windSpeedMeasurement = UnitOfSpeedMeasurement.kilometres.rawValue
+    private let actualWeather = Link.londonWeather.rawValue
     
     //MARK: - overrides
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        networkManager.fetchWeather(link: actualWeather) { result in
-            switch result {
-            case .success(let weather):
-                DispatchQueue.main.async {
-                    self.weather = weather
-                    self.title = weather.region
-                    self.collectionView.reloadData()
-                }
-            case .failure(let error):
-                print(error)
-            }
-        }
+        fetchWeather(url: actualWeather)
     }
     
     // MARK: - UICollectionViewDataSource
@@ -65,8 +53,7 @@ class WeatherCollectionViewController: UICollectionViewController {
             cell.showCurrentWeatherData(
                 currentWeather: currentWeather,
                 temperatureMeasurement: temperatureMeasurement,
-                windSpeedMeasurment: windSpeedMeasurment,
-                networkManager: networkManager
+                windSpeedMeasurement: windSpeedMeasurement
             )
             return cell
             
@@ -82,11 +69,26 @@ class WeatherCollectionViewController: UICollectionViewController {
             cell.showForecast(
                 forecast: forecastWeather,
                 temperatureMeasurement: temperatureMeasurement,
-                windSpeedMeasurment: windSpeedMeasurment,
-                networkManager: networkManager
+                windSpeedMeasurement: windSpeedMeasurement
             )
             
             return cell
+        }
+    }
+    
+    //MARK: - Private methods
+    private func fetchWeather(url: String) {
+        NetworkManager.shared.fetchWeather(link: url) { result in
+            switch result {
+            case .success(let weather):
+                DispatchQueue.main.async {
+                    self.weather = weather
+                    self.title = weather.region
+                    self.collectionView.reloadData()
+                }
+            case .failure(let error):
+                print(error)
+            }
         }
     }
 }

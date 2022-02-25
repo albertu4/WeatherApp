@@ -5,12 +5,17 @@
 //  Created by Михаил Иванов on 18.02.2022.
 
 import Foundation
-import UIKit
+
+enum NetworkError: Error {
+    case invalidURL
+    case noData
+    case decodingError
+}
 
 class NetworkManager {
     
-    var image: UIImage?
-    var forecastImage: UIImage?
+    static let shared = NetworkManager()
+    private init() {}
     
     func fetchWeather(link: Link.RawValue, completion: @escaping (Result<Weather, Error>) -> ()) {
         guard let url = URL(string: link) else { return }
@@ -25,42 +30,30 @@ class NetworkManager {
             }
         }.resume()
     }
+}
+
+class IconManager {
     
-    func fetchCurrentWeatherImage(link: String) -> UIImage{
+    static var shared = IconManager()
+    private init() {}
+    
+    func fetchWeatherIconData(from link: String?, completion: @escaping(Data) -> Void) {
+        guard let stringURL = link else { return }
+        guard let url = URL(string: stringURL) else {
+            print(NetworkError.invalidURL)
+            return
+        }
         
-        let errorImage = UIImage(systemName: "wifi.slash")
-        guard let url = URL(string: link) else { return errorImage!}
         URLSession.shared.dataTask(with: url) { data, _, error in
             guard let data = data else {
+                print(NetworkError.noData)
                 print(error?.localizedDescription ?? "No error description")
                 return
             }
-            
-            guard let fetchedImage = UIImage(data: data) else { return }
             
             DispatchQueue.main.async {
-                self.image = fetchedImage
+                completion(data)
             }
         }.resume()
-        return image ?? errorImage!
-    }
-    
-    func fetchForecastImage(link: String) -> UIImage {
-        
-        let errorImage = UIImage(systemName: "wifi.slash")
-        guard let url = URL(string: link) else { return errorImage!}
-        URLSession.shared.dataTask(with: url) { data, _, error in
-            guard let data = data else {
-                print(error?.localizedDescription ?? "No error description")
-                return
-            }
-            
-            guard let fetchedImage = UIImage(data: data) else { return }
-            
-            DispatchQueue.global().async {
-                self.forecastImage = fetchedImage
-            }
-        }.resume()
-        return forecastImage ?? errorImage!
     }
 }

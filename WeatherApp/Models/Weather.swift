@@ -38,10 +38,10 @@ enum Link: String {
 
 enum UnitOfSpeedMeasurement: String {
     case kilometres = "km"
-    case miles
+    case mile
 }
 
 enum UnitOfTemperatureMeasurement: String {
-    case fahrenheit = "f"
     case celsius = "c"
+    case fahrenheit = "f"
 }

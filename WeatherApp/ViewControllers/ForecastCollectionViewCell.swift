@@ -17,13 +17,17 @@ class ForecastCollectionViewCell: UICollectionViewCell {
     
     func showForecast(forecast: NextDays,
                       temperatureMeasurement: String,
-                      windSpeedMeasurment: String,
-                      networkManager: NetworkManager) {
+                      windSpeedMeasurement: String) {
         forecastDay.text = forecast.day
         forecastComment.text = forecast.comment
         forecastMinTemp.text = "Min T: \(forecast.min_temp[temperatureMeasurement] ?? 0)°C"
         forecastMaxTemp.text = "Max T: \(forecast.max_temp?[temperatureMeasurement] ?? 0)°C"
-        forecastIcon.image = networkManager.fetchForecastImage(link: forecast.iconURL ?? "")
+        
+        IconManager.shared.fetchWeatherIconData(from: forecast.iconURL) { data in
+            self.forecastIcon.image = UIImage(data: data)
+        }
     }
-    
 }
+
+
+

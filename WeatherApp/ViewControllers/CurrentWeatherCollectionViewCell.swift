@@ -19,15 +19,17 @@ class CurrentWeatherCollectionViewCell: UICollectionViewCell {
     
     func showCurrentWeatherData(currentWeather: CurrentConditions,
                                 temperatureMeasurement: String,
-                                windSpeedMeasurment: String,
-                                networkManager: NetworkManager) {
+                                windSpeedMeasurement: String) {
         weatherTime.text = currentWeather.dayhour
         currentTemperature.text = "\(currentWeather.temp?[temperatureMeasurement] ?? 0)°C"
         weatherComment.text = currentWeather.comment
         precipitation.text = "Precipitation \n\(currentWeather.precip ?? "")"
         humidity.text = "Humidity \n\(currentWeather.humidity ?? "")"
-        wind.text = "Wind \n\(currentWeather.wind?[windSpeedMeasurment] ?? 0) km/h"
-        weatherIcon?.image = networkManager.fetchCurrentWeatherImage(link: currentWeather.iconURL ?? "")
+        wind.text = "Wind \n\(currentWeather.wind?[windSpeedMeasurement] ?? 0) km/h"
+    
+        IconManager.shared.fetchWeatherIconData(from: currentWeather.iconURL) { data in
+            self.weatherIcon?.image = UIImage(data: data)
+        }
     }
 }
 
