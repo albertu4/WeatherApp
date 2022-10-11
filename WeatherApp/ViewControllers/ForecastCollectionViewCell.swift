@@ -20,8 +20,8 @@ class ForecastCollectionViewCell: UICollectionViewCell {
                       windSpeedMeasurement: String) {
         forecastDay.text = forecast.day
         forecastComment.text = forecast.comment
-        forecastMinTemp.text = "Min T: \(forecast.min_temp[temperatureMeasurement] ?? 0)°C"
-        forecastMaxTemp.text = "Max T: \(forecast.max_temp?[temperatureMeasurement] ?? 0)°C"
+        forecastMinTemp.text = "Min T: \(forecast.min_temp[temperatureMeasurement] ?? 0)"
+        forecastMaxTemp.text = "Max T: \(forecast.max_temp?[temperatureMeasurement] ?? 0)"
         
         IconManager.shared.fetchWeatherIconData(from: forecast.iconURL) { data in
             self.forecastIcon.image = UIImage(data: data)

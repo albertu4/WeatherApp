@@ -11,14 +11,16 @@ class WeatherCollectionViewController: UICollectionViewController {
     
     //MARK: - Private properties
     private var weather: Weather?
-    private let temperatureMeasurement = UnitOfTemperatureMeasurement.celsius.rawValue
-    private let windSpeedMeasurement = UnitOfSpeedMeasurement.kilometres.rawValue
     private let actualWeather = Link.londonWeather.rawValue
+    private var unit = true
+    
+    private var temperatureMeasurement = UnitOfTemperatureMeasurement.celsius.rawValue
+    private var windSpeedMeasurement = UnitOfSpeedMeasurement.kilometres.rawValue
     
     //MARK: - overrides
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        addNavigationBarButton()
         fetchWeather(url: actualWeather)
     }
     
@@ -90,6 +92,30 @@ class WeatherCollectionViewController: UICollectionViewController {
                 print(error)
             }
         }
+    }
+    
+    private func addNavigationBarButton() {
+        
+        let barButton = UIBarButtonItem.init(
+            title: "°C",
+            style: .plain,
+            target: self,
+            action: #selector(changeUnits)
+        )
+        
+        navigationItem.rightBarButtonItem = barButton
+    }
+    
+    @objc private func changeUnits() {
+        if unit {
+            temperatureMeasurement = UnitOfTemperatureMeasurement.fahrenheit.rawValue
+            navigationItem.rightBarButtonItem?.title = "°F"
+        } else {
+            temperatureMeasurement = UnitOfTemperatureMeasurement.celsius.rawValue
+            navigationItem.rightBarButtonItem?.title = "°C"
+        }
+        unit.toggle()
+        collectionView.reloadData()
     }
 }
 

@@ -19,7 +19,7 @@ class NetworkManager {
     
     func fetchWeather(link: Link.RawValue, completion: @escaping (Result<Weather, Error>) -> ()) {
         guard let url = URL(string: link) else { return }
-        URLSession.shared.dataTask(with: url) { data, response, error in
+        URLSession.shared.dataTask(with: url) { data, _, error in
             guard let data = data else { return }
             
             do {

@@ -21,7 +21,7 @@ class CurrentWeatherCollectionViewCell: UICollectionViewCell {
                                 temperatureMeasurement: String,
                                 windSpeedMeasurement: String) {
         weatherTime.text = currentWeather.dayhour
-        currentTemperature.text = "\(currentWeather.temp?[temperatureMeasurement] ?? 0)°C"
+        currentTemperature.text = "\(currentWeather.temp?[temperatureMeasurement] ?? 0)"
         weatherComment.text = currentWeather.comment
         precipitation.text = "Precipitation \n\(currentWeather.precip ?? "")"
         humidity.text = "Humidity \n\(currentWeather.humidity ?? "")"
